@@ -1,5 +1,5 @@
 import Jimp from 'jimp';
-import robot from 'robotjs';
+
 import { createWebSocketStream, WebSocketServer } from 'ws';
 import httpServer from './src/http_server/index';
 import controller from './src/controller'
@@ -15,9 +15,9 @@ const wss = new WebSocketServer({ port: WEBSOCKET_PORT });
 wss.on('connection', ws => {
     console.log(`Start websocket server on the ${WEBSOCKET_PORT} port!`);
     const wsStream = createWebSocketStream(ws, { encoding: 'utf8' });
-    wsStream.on('data', (chunk) => {
+    wsStream.on('data', async (chunk) => {
         //console.log(chunk);
-        controller(chunk);
+        await controller(chunk);
     });
     wsStream.on('end', () => {
         console.log('Client was closed');

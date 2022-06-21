@@ -1,9 +1,11 @@
+import robot from 'robotjs';
+
 export function upMouse(offset: string) {
     return offset;
   }
   
 export function downMouse(offset: string) {
-    return offset;
+
   }
   
 export function rightMouse(offset: string) {

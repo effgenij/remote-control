@@ -2,11 +2,11 @@ import { sendMousePosition, sendPrintScreen } from './controlls/send';
 import { upMouse, downMouse, rightMouse, leftMouse } from './controlls/move';
 import { drawCircle, drawSquare, drawRectangle } from './controlls/draw';
 
-export default function controller(data: string) {
+export default async function controller(data: string) {
   const [command, x, y] = data.split(' ');
   switch (command) {
     case 'mouse_position':
-      sendMousePosition();
+      await sendMousePosition();
       break;
     case 'mouse_up':
       upMouse(x);

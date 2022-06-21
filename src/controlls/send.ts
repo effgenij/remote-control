@@ -1,5 +1,8 @@
-export function sendMousePosition() {
-    return;
+import robot from 'robotjs';
+
+export async function sendMousePosition() {
+    let mouse = robot.getMousePos();
+    console.log(mouse);
   }
   
   

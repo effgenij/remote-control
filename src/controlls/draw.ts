@@ -1,3 +1,5 @@
+import robot from 'robotjs';
+
 export function drawCircle(radius: string) {
     return radius;
   }
