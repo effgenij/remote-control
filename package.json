@@ -5,9 +5,13 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "start": "node ./index.js",
-        "start:dev": "nodemon ./index.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "start": "npm run build && npm run prod",
+        "start:dev": "nodemon ./index.ts",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc",
+        "prod": "cross-env NODE_ENV=production node dist/index.js",
+        "pretty": "prettier './**/*.ts'",
+        "pretty:fix": "prettier --write './**/*.ts'"
     },
     "author": "Andrei Auchynnikau",
     "keywords": [],
