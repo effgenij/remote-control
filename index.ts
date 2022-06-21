@@ -16,9 +16,8 @@ wss.on('connection', ws => {
     console.log(`Start websocket server on the ${WEBSOCKET_PORT} port!`);
     const wsStream = createWebSocketStream(ws, { encoding: 'utf8' });
     wsStream.on('data', (chunk) => {
-        console.log(`Received ${chunk.length} bytes of data.`);
-        console.log(chunk);
-        //controller(chunk);
+        //console.log(chunk);
+        controller(chunk);
     });
     wsStream.on('end', () => {
         console.log('Client was closed');

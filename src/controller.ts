@@ -1,47 +1,38 @@
-import {
-  sendMousePosition,
-  upMouse,
-  downMouse,
-  rightMouse,
-  leftMouse,
-  drawCircle,
-  drawSquare,
-  drawRectangle,
-  sendPrintScreen,
-} from './controls';
-import parseMessage from './utils';
+import { sendMousePosition, sendPrintScreen } from './controlls/send';
+import { upMouse, downMouse, rightMouse, leftMouse } from './controlls/move';
+import { drawCircle, drawSquare, drawRectangle } from './controlls/draw';
 
-export default function controller(message: string) {
-  const [command, arg1, arg2] = parseMessage(message);
+export default function controller(data: string) {
+  const [command, x, y] = data.split(' ');
   switch (command) {
     case 'mouse_position':
       sendMousePosition();
       break;
     case 'mouse_up':
-      upMouse(arg1);
+      upMouse(x);
       break;
     case 'mouse_down':
-      downMouse(arg1);
+      downMouse(x);
       break;
     case 'mouse_right':
-      rightMouse(arg1);
+      rightMouse(x);
       break;
     case 'mouse_left':
-      leftMouse(arg1);
+      leftMouse(x);
       break;
     case 'draw_circle':
-      drawCircle(arg1);
+      drawCircle(x);
       break;
     case 'draw_square':
-      drawSquare(arg1);
+      drawSquare(x);
       break;
     case 'draw_rectangle':
-      drawRectangle(arg1, arg2);
+      drawRectangle(x, y);
       break;
     case 'prnt_scrn':
       sendPrintScreen();
       break;
     default:
-      throw new Error('Wrong command sended to server');
+      throw new Error('Wrong command received from client');
   }
 }
