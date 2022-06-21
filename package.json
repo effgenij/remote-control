@@ -11,15 +11,21 @@
         "build": "tsc",
         "prod": "cross-env NODE_ENV=production node dist/index.js",
         "pretty": "prettier './**/*.ts'",
-        "pretty:fix": "prettier --write './**/*.ts'"
+        "pretty:fix": "prettier --write './**/*.ts'",
+        "lint": "eslint './**/*.ts'",
+        "lint:fix": "eslint --fix './**/*.ts'",
+        "style:fix": "npm run lint:fix && npm run pretty:fix"
     },
     "author": "Andrei Auchynnikau",
     "keywords": [],
     "license": "ISC",
     "devDependencies": {
         "@types/ws": "^8.5.3",
+        "@typescript-eslint/eslint-plugin": "^5.29.0",
+        "@typescript-eslint/parser": "^5.29.0",
         "dotenv": "^16.0.1",
         "eslint": "^8.18.0",
+        "eslint-config-airbnb": "^19.0.4",
         "jest": "^28.1.1",
         "nodemon": "^2.0.16",
         "prettier": "^2.7.1",
