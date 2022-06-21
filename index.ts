@@ -1,24 +1,34 @@
 import Jimp from 'jimp';
 import robot from 'robotjs';
-import { WebSocketServer } from 'ws';
+import { createWebSocketStream, WebSocketServer } from 'ws';
 import httpServer from './src/http_server/index';
+import controller from './src/controller'
 
 const HTTP_PORT = 3000;
+const WEBSOCKET_PORT = 8080;
 
 console.log(`Start static http server on the ${HTTP_PORT} port!`);
 httpServer.listen(HTTP_PORT);
 
-const wss = new WebSocketServer({ port: 8080 });
+const wss = new WebSocketServer({ port: WEBSOCKET_PORT });
 
 wss.on('connection', ws => {
-    ws.on('message', data => {
-        console.log('received: %s', data);
+    console.log(`Start websocket server on the ${WEBSOCKET_PORT} port!`);
+    const wsStream = createWebSocketStream(ws, { encoding: 'utf8' });
+    wsStream.on('data', (chunk) => {
+        console.log(`Received ${chunk.length} bytes of data.`);
+        console.log(chunk);
+        //controller(chunk);
+    });
+    wsStream.on('end', () => {
+        console.log('Client was closed');
     });
 
-    ws.send('something');
-    ws.send('test');
 });
 
-wss.on('close', () => {
-    console.log('End');
+
+process.on('SIGINT', () => { 
+    wss.close();
+    console.log('Websocket connection will be closed.')
+    process.exit(0);
 });
