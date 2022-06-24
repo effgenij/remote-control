@@ -1,4 +1,3 @@
-import Jimp from 'jimp';
 
 import { createWebSocketStream, WebSocketServer } from 'ws';
 import httpServer from './src/http_server/index';
@@ -14,10 +13,12 @@ const wss = new WebSocketServer({ port: WEBSOCKET_PORT });
 
 wss.on('connection', ws => {
     console.log(`Start websocket server on the ${WEBSOCKET_PORT} port!`);
-    const wsStream = createWebSocketStream(ws, { encoding: 'utf8' });
+    const wsStream = createWebSocketStream(ws, { encoding: 'utf8', decodeStrings: false });
     wsStream.on('data', async (chunk) => {
-        //console.log(chunk);
-        await controller(chunk);
+        const response = await controller(chunk);
+        if (typeof(response) === 'string') {
+           wsStream.write(response);
+        }
     });
     wsStream.on('end', () => {
         console.log('Client was closed');
