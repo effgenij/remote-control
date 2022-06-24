@@ -1,5 +1,5 @@
 import robot from 'robotjs';
-import { ICoordinates } from './mouse.types';
+import { ICoordinates } from './controlls.types';
 
 export default async function mouse(specification: string, x: string, y: string): Promise<ICoordinates> {
     const position = robot.getMousePos();
