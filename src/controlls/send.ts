@@ -1,9 +1,8 @@
 import robot from 'robotjs';
+import Jimp from 'jimp';
 
-export async function sendMousePosition() {
-    let mouse = robot.getMousePos();
-    console.log(mouse);
-  }
+
+
   
   
 export function sendPrintScreen() {

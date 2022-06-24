@@ -1,35 +1,19 @@
-import { sendMousePosition, sendPrintScreen } from './controlls/send';
-import { upMouse, downMouse, rightMouse, leftMouse } from './controlls/move';
-import { drawCircle, drawSquare, drawRectangle } from './controlls/draw';
+import { sendPrintScreen } from './controlls/send';
+import mouse from './controlls/mouse';
+import draw from './controlls/draw';
 
 export default async function controller(data: string) {
   const [command, x, y] = data.split(' ');
-  switch (command) {
-    case 'mouse_position':
-      await sendMousePosition();
-      break;
-    case 'mouse_up':
-      upMouse(x);
-      break;
-    case 'mouse_down':
-      downMouse(x);
-      break;
-    case 'mouse_right':
-      rightMouse(x);
-      break;
-    case 'mouse_left':
-      leftMouse(x);
-      break;
-    case 'draw_circle':
-      drawCircle(x);
-      break;
-    case 'draw_square':
-      drawSquare(x);
-      break;
-    case 'draw_rectangle':
-      drawRectangle(x, y);
-      break;
-    case 'prnt_scrn':
+  const [base, specification] = command.split('_');
+  let position;
+  switch (base) {
+    case 'mouse':
+      position = await mouse(specification, x, y);
+      return `mouse_position ${position.x},${position.y}\0`;
+    case 'draw':
+      position = await draw(specification, x, y);
+      return `mouse_position ${position.x},${position.y}\0`;
+    case 'prnt':
       sendPrintScreen();
       break;
     default:
