@@ -15,7 +15,9 @@ wss.on('connection', ws => {
     console.log(`Start websocket server on the ${WEBSOCKET_PORT} port!`);
     const wsStream = createWebSocketStream(ws, { encoding: 'utf8', decodeStrings: false });
     wsStream.on('data', async (chunk) => {
-        const response = await controller(chunk);
+        const [command, x, y] = chunk.split(' ');
+        wsStream.write(command);
+        const response = await controller(command, x, y);
         if (typeof(response) === 'string') {
            wsStream.write(response);
         }
