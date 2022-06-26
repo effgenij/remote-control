@@ -16,14 +16,20 @@ wss.on('connection', ws => {
     const wsStream = createWebSocketStream(ws, { encoding: 'utf8', decodeStrings: false });
     wsStream.on('data', async (chunk) => {
         const [command, x, y] = chunk.split(' ');
+        process.stdout.write(`Recieved: ${chunk}`);
         wsStream.write(command);
-        const response = await controller(command, x, y);
-        if (typeof(response) === 'string') {
-           wsStream.write(response);
-        }
+        try {
+            const response = await controller(command, x, y);
+            if (typeof(response) === 'string') {
+            wsStream.write(response);
+            }
+            process.stdout.write(`Command: "${command}" executed without errors.`);
+        } catch (err: any) {
+            process.stdout.write(`Command: "${command}" not executed. Error message: ${err.message}`);
+        };
     });
     wsStream.on('end', () => {
-        console.log('Client was closed');
+        process.stdout.write('Client was closed');
     });
 
 });
@@ -31,6 +37,6 @@ wss.on('connection', ws => {
 
 process.on('SIGINT', () => { 
     wss.close();
-    console.log('Websocket connection will be closed.')
+    process.stdout.write('Websocket connection will be closed.')
     process.exit(0);
 });

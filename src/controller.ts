@@ -16,8 +16,8 @@ export default async function controller(command: string, x: string, y: string )
       await draw(specification, x, y);
       break;
     case 'prnt':
-      await sendPrintScreen();
-      break;
+      const screenShot = await sendPrintScreen();
+      return screenShot;
     default:
       throw new Error('Wrong command received from client');
   }
