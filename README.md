@@ -1,30 +1,26 @@
-# RSSchool NodeJS websocket task template
-> Static http server and base task packages.
+# Remote Control App
+### Clone the repo: 
+- for SSH: ```git clone git@github.com:effgenij/remote-control.git```
+- for HTTPS: ```git clone https://github.com/effgenij/remote-control.git```
 
-## Installation
-1. Clone/download repo
-2. `npm install`
+### Change directory to directory app
+- for Linux: ```cd remote-control```
+- for Windows poershell: ``` cd .\remote-control\```
+### Install dependencies
+```npm install```
 
-## Usage
-**Development**
+### Start application
+```npm start.```
 
-`npm run start:dev`
+### Using
+- Open ```localhost:3000``` in browser
+- See commands in the browser page
 
-* App served @ `http://localhost:8181` with nodemon
+####Commands
 
-**Production**
-
-`npm run start`
-
-* App served @ `http://localhost:8181` without nodemon
-
----
-
-**All commands**
-
-Command | Description
---- | ---
-`npm run dev` | App served @ `http://localhost:8181` with nodemon
-`npm run start` | App served @ `http://localhost:8181` without nodemon
-
-**Note**: replace `npm` with `yarn` in `package.json` if you use yarn.
+- Navigation over the x and y axis: keyboard arrow;
+- Get current mouse position key: P;
+- Screenshot desktop key: Ctrl+P;
+- Draw rectangle key: R;
+- Draw square key: S;
+- Draw circle key: C;
