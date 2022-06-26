@@ -4,13 +4,13 @@ import { ICoordinates } from './controlls.types';
 export default async function draw(specification: string, x: string, y?: string): Promise<ICoordinates> {
   const position = robot.getMousePos();
   const drawFigure = {
-    'circle': async() => {
+    circle: async () => {
       await drawCircle(position, x);
     },
-    'rectangle': async () => {
+    rectangle: async () => {
       await drawRectangle(position, x, y);
     },
-    'square': async () => {
+    square: async () => {
       await drawRectangle(position, x);
     },
   };

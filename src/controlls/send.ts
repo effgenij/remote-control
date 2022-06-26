@@ -6,13 +6,8 @@ export default async function sendPrintScreen() {
   const halfDimenshion = dimenshion / 2;
   let { x, y } = robot.getMousePos();
 
-  const screenShot = robot.screen.capture(
-    x - halfDimenshion,
-    y - halfDimenshion,
-    dimenshion,
-    dimenshion,
-  );
-  const img = new Jimp({data: screenShot.image, width: dimenshion, height: dimenshion});
+  const screenShot = robot.screen.capture(x - halfDimenshion, y - halfDimenshion, dimenshion, dimenshion);
+  const img = new Jimp({ data: screenShot.image, width: dimenshion, height: dimenshion });
 
   let pos = 0;
   img.scan(0, 0, img.bitmap.width, img.bitmap.height, (_x, _y, idx) => {
